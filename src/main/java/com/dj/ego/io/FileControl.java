@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
+import static cn.hutool.core.util.CharsetUtil.UTF_8;
 
 /**
  * @author 戴俊明
@@ -64,8 +67,12 @@ public class FileControl {
             response.reset();
             response.setContentType("application/octet-stream");
             response.setCharacterEncoding("UTF-8");
-            response.addHeader("Content-Disposition",
-                    "attachment;filename*=UTF-8''" + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+            try {
+                response.addHeader("Content-Disposition",
+                        "attachment;filename*=UTF-8''" + URLEncoder.encode(fileName, UTF_8));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             response.addHeader("Content-Length", "" + file.length());
 
             response.setHeader("Accept-Ranges", "bytes");
@@ -124,7 +131,7 @@ public class FileControl {
                     }
                 }
                 response.flushBuffer();
-            } catch (IOException ignored) {
+            }catch (IOException ignored) {
             } finally {
                 try {
                     if (in != null) {

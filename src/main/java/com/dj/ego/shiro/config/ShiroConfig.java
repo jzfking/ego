@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.servlet.Filter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class ShiroConfig {
     @Bean
     public Authenticator authenticator(UserRealm userRealm) {
         ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
-        authenticator.setRealms(List.of(userRealm));
+        authenticator.setRealms(Arrays.asList(userRealm));
         authenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
         return authenticator;
     }
@@ -70,7 +71,8 @@ public class ShiroConfig {
     @Bean
     Authorizer authorizer(UserRealm userRealm) {
         ModularRealmAuthorizer authorizer = new ModularRealmAuthorizer();
-        authorizer.setRealms(List.of(userRealm));
+
+        authorizer.setRealms(Arrays.asList(userRealm));
         authorizer.setPermissionResolver(new WildcardPermissionResolver());
         return authorizer;
     }
