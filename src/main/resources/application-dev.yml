@@ -1,0 +1,142 @@
+server:
+  address: 0.0.0.0
+  port: 56565
+  servlet:
+    context-path: /ego
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  aop:
+    proxy-target-class: true
+
+  servlet:
+    multipart:
+      max-request-size: 4096MB
+      max-file-size: 4096MB
+
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+    time-zone: GMT+8
+    locale: zh_CN
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    property-naming-strategy: SNAKE_CASE
+
+  mail:
+    host: smtp.qq.com
+    username: 1601435381@qq.com
+    password: vrsudiplrdwefihg
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    protocol: smtp
+    port: 5000
+
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+    servlet:
+      content-type: text/html
+
+  redis:
+    database: 0
+    host: localhost
+    password: 123456
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+
+  cache:
+    type: redis
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://101.132.140.64:3306/ego?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&useAffectedRows=true
+    username: root
+    password: 13585427968@dy
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        enabled: true
+        url-pattern: "/druid/*"
+        allow: 127.0.0.1
+        deny: 192.168.0.2
+        reset-enable: false
+        login-username: admin
+        login-password: 123456
+
+#    schema: classpath:sql/schema.sql
+#    data: classpath:sql/data.sql
+#    schema-username: root
+#    schema-password: 123456
+#    data-username: root
+#    data-password: 123456
+#    sql-script-encoding: utf-8
+#    initialization-mode: always
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+
+mapper:
+  mappers: com.dj.ego.common.data.BaseDao
+  not-empty: false
+  identity: MYSQL
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  file: log/ego.log
+  level.*: info
+
+file:
+  dynamic-files-path: D:/spring-boot-manage-system/materials/
+

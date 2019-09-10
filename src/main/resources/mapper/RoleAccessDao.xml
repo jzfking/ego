@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.RoleAccessDao">
+
+	<resultMap id="role_access" type="com.service.cboot.security.shiro.entity.po.RoleAccess">
+		<id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="role_id" jdbcType="INTEGER" property="roleId"/>
+		<result column="access_id" jdbcType="INTEGER" property="accessId"/>
+	</resultMap>
+
+</mapper>
